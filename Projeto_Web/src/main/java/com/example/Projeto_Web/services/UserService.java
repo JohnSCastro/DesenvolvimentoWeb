@@ -33,10 +33,15 @@ public class UserService {
     }
 
     public User update(Long id, User obj) {
-        User entity = repository.getOne(id);
-        updateData(entity, obj);
-        return repository.save(entity);
-    }
+        Optional<User> optionalEntity = repository.findById(id);
+        if (optionalEntity.isPresent()) {
+            User entity = optionalEntity.get();
+            updateData(entity, obj);
+            return repository.save(entity);
+        } else {
+            throw new ResourceNotFoundException(id);
+        }
+    }    
 
     private void updateData(User entity, User obj) {
         entity.setName(obj.getName());
