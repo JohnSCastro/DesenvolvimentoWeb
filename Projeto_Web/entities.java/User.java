@@ -1,38 +1,40 @@
-package com.example.Projeto_Web.entities;
+package com.example.demo.entities;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "tb_user")
 public class User implements Serializable {
+    
     private static final long serialVersionUID = 1L;
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+    
+    private String nome;
     private String email;
-    private String phone;
+    private String telefone;
     private String password;
 
+    // Construtor vazio
     public User() {
     }
 
-    public User(Long id, String name, String email, String phone, String password) {
+    // Construtor usando todos os atributos
+    public User(Long id, String nome, String email, String telefone, String password) {
         this.id = id;
-        this.name = name;
+        this.nome = nome;
         this.email = email;
-        this.phone = phone;
+        this.telefone = telefone;
         this.password = password;
     }
 
+    // Getters e setters
+    // Id
     public Long getId() {
         return id;
     }
@@ -41,14 +43,16 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    // Nome
+    public String getNome() {
+        return nome;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
+    // Email
     public String getEmail() {
         return email;
     }
@@ -57,14 +61,16 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public String getPhone() {
-        return phone;
+    // Telefone
+    public String getTelefone() {
+        return telefone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 
+    // Password
     public String getPassword() {
         return password;
     }
@@ -73,16 +79,17 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    // Implementação dos métodos equals() e hashCode()
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id);
+        return Objects.equals(id, user.id) && Objects.equals(nome, user.nome) && Objects.equals(email, user.email) && Objects.equals(telefone, user.telefone) && Objects.equals(password, user.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, nome, email, telefone, password);
     }
 }
